@@ -1,0 +1,85 @@
+extends ../layout
+
+block content
+    .container
+        .row
+            form.form-horizontal(method='post', action='/admin/movie/new', enctype='multipart/form-data')
+                if !movie._id
+                    .form-group
+                        label.col-sm-2.control-label(for='douban')
+                            | 电影ID
+                        .col-sm-9
+                            input#douban.form-control(type='text')
+                if movie._id
+                    input(type='hidden', name='movie[_id]', value="#{movie._id}")
+                    input(type='hidden', name='movie[pastCategory]', value="#{movie.category}")
+
+                .form-group
+                    label.col-sm-2.control-label(for='inputTitle')
+                        | 电影名称
+                    .col-sm-9
+                        input.form-control#inputTitle(type='text', name='movie[title]', value=movie.title)
+                .form-group
+                    label.col-sm-2.control-label(for='inputCategory')
+                        | 电影分类
+                    .col-sm-9
+                        input.form-control#inputCategory(type='text', name='movie[categoryName]', value=movie.categoryName)
+                .form-group
+                    label.col-sm-2.control-label
+                    each cat in categories
+                        if movie._id
+                            label.radio-inline
+                                input(type='radio', name='movie[category]', value='#{cat._id}', checked = movie.category.toString() === cat._id.toString())
+                                | #{cat.name}
+                        else
+                            label.radio-inline
+                                input(type='radio', name='movie[category]', value='#{cat._id}')
+                                | #{cat.name}
+                .form-group
+                    label.col-sm-2.control-label(for='inputPoster')
+                        | 电影海报
+                    .col-sm-9
+                        input.form-control#inputPoster(type='text', name='movie[poster]', value=movie.poster)
+                .form-group
+                    label.col-sm-2.control-label(for='uploadPoster')
+                        | 电影海报
+                    .col-sm-9
+                        input.form-control#uploadPoster(type='file', name='poster')
+                .form-group
+                    label.col-sm-2.control-label(for='inputVideo')
+                        | 电影链接
+                    .col-sm-9
+                        input.form-control#inputVideo(type='text', name='movie[video]', value=movie.video)
+                .form-group
+                    label.col-sm-2.control-label(for='inputCountry')
+                        | 电影国家
+                    .col-sm-9
+                        input.form-control#inputCountry(type='text', name='movie[country]', value=movie.country)
+                .form-group
+                    label.col-sm-2.control-label(for='inputLanguage')
+                        | 电影语言
+                    .col-sm-9
+                        input.form-control#inputLanguage(type='text', name='movie[language]', value=movie.language)
+                .form-group
+                    label.col-sm-2.control-label(for='inputActors')
+                        | 电影主演
+                    .col-sm-9
+                        input.form-control#inputActors(type='text', name='movie[actors]', value=movie.actors)
+                .form-group
+                    label.col-sm-2.control-label(for='inputScore')
+                        | 电影评分
+                    .col-sm-9
+                        input.form-control#inputScore(type='text', name='movie[score]', value=movie.score)
+                .form-group
+                    label.col-sm-2.control-label(for='inputSummary')
+                        | 电影简介
+                    .col-sm-9
+                        input.form-control#inputSummary(type='text', name='movie[summary]', value=movie.summary)
+                .form-group
+                    .col-sm-offset-2.col-sm-10
+                        button.btn.btn-default(type='submit')
+                            | 提交
+                br
+                br
+                br
+    script(src='/js/admin.js')

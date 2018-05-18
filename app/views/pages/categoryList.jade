@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+    .container
+        .row
+            table.table.table-hover.table-bordered
+                thead
+                    tr
+                        th 名称
+                        th 录入时间
+                        th 查看
+                        th 电影
+                        th 更新
+                        th 删除
+                tbody
+                    each item in categories
+                        tr(class='item-id-#{item._id}')
+                            td #{item.name}
+                            td #{moment(item.meta.createdAt).format('MM/DD/YYYY')}
+                            td: a(href='#')
+                                | 查看
+                            td:#{item.movies}
+                            td: a(href='#')
+                                | 修改
+                            td
+                                button.btn.btn-danger.del(type='button', data-id='#{item._id}')
+                                    | 删除
+    //script(src='/js/admin.js')
+    //script(src='/js/admin.js')

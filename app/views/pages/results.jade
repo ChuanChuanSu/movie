@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+    .container
+        .row
+            .panel.panel-default
+                if category
+                    .panel-heading #{category.name}
+                else
+                    .panel-heading #{query}
+                .panel-body
+                    if movies && movies.length > 0
+                        each item in movies
+                            .col-md-2.col-sm-2
+                                .thumbnail
+                                    a(href='/movie/#{item._id}', target='_blank')
+                                        if item.poster.indexOf('http') > -1
+                                            img(src='#{item.poster}', alt='#{item.title}')
+                                        else
+                                            img(src='/upload/#{item.poster}', alt='#{item.title}')
+                                        //img(src='#{item.poster}', alt='#{item.title}')
+                                    .captain
+                                        h3= item.title
+                                        p
+                                            a.btn.btn-primary(href='/movie/#{item._id}', role='button', target='_blank')
+                                                | 观看预告片
+            ul.pagination
+                - for(let i=1;i <= totalPage;i++)
+                     if i === currentPage
+                          li.active
+                              span #{i}
+                     else
+                          li
+                              if category
+                                  a(href='/results?p=' + i + '&' + query) #{i}
+                              else
+                                  a(href='/results?p=' + i + '&q=' + query) #{i}
